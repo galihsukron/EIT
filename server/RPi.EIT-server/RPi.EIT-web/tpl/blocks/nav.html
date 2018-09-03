@@ -1,0 +1,111 @@
+<!-- list -->
+<ul class="nav">
+  <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
+    <span translate="aside.nav.SUB">Navigation</span>
+  </li>
+  <li ui-sref-active="active">
+    <a ui-sref="app.dashboard">
+      <i class="glyphicon glyphicon-stats icon text-primary-dker"></i>
+      <span class="font-bold" translate="aside.nav.DASHBOARD">Dashboard</span>
+    </a>
+  </li>
+  <!-- <li ui-sref-active="active">
+    <a ui-sref="app.calendar">
+      <i class="icon text-info-dker icon-graph"></i>
+      <span class="font-bold" translate="aside.nav.DAYA"></span>
+    </a>
+  </li> -->
+  <li ng-class="{active:$state.includes('app.algor')}">
+    <a href class="auto">
+      <span class="pull-right text-muted">
+        <i class="fa fa-fw fa-angle-right text"></i>
+        <i class="fa fa-fw fa-angle-down text-active"></i>
+      </span>
+      <i class="glyphicon glyphicon-th-large icon text-success"></i>
+      <span class="font-bold" translate="aside.nav.ALGOR">T</span>
+    </a>
+    <ul class="nav nav-sub dk">
+      <li ui-sref-active="active">
+        <a ui-sref="app.algor.sub({idalgor:'FEM'})">
+          <span>FEM</span>
+        </a>
+      </li>
+      <li ui-sref-active="active">
+        <a ui-sref="app.algor.sub({idalgor:'ART'})">
+          <span>ART</span>
+        </a>
+      </li>
+      <li ui-sref-active="active">
+        <a ui-sref="app.algor.sub({idalgor:'BP'})">
+          <span>BP</span>
+        </a>
+      </li>
+      <li ui-sref-active="active">
+        <a ui-sref="app.algor.sub({idalgor:'GREIT'})">
+          <span>GREIT</span>
+        </a>
+      </li>
+      <li ui-sref-active="active">
+        <a ui-sref="app.algor.sub({idalgor:'JAC'})">
+          <span>JAC</span>
+        </a>
+      </li>
+    </ul>
+  </li>
+
+    <li ng-class="{active:$state.includes('app.data.home')}" ng-class="{active:$state.includes('app.data.id')}">
+    <a ui-sref="app.data.home">
+      <i class="fa fa-database"></i>
+      <span class="font-bold" translate="aside.nav.DATA"></span>
+    </a>
+  </li>
+
+<!--  -->
+  <li class="line dk"></li>
+  <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
+    <span translate="aside.nav.components.SUB"></span>
+  </li>
+  <li ui-sref-active="active">
+    <a ui-sref="app.reconstruction">
+      <i class="glyphicon glyphicon-fire"></i>
+      <span class="font-bold" translate="aside.nav.components.RECONSTRUCTION"></span>
+    </a>
+  </li>
+  <li ui-sref-active="active">
+    <a ui-sref="app.realtime">
+      <i class="fa fa-flash text-danger-lter"></i>
+      <span class="font-bold" translate="aside.nav.components.REALTIME"></span>
+    </a>
+  </li>
+  <li ui-sref-active="active">
+    <a ui-sref="app.galeri">
+      <i class="fa fa-file-image-o"></i>
+      <span class="font-bold" translate="aside.nav.components.GALLERY"></span>
+    </a>
+  </li>
+
+  <li class="line dk hidden-folded"></li>
+  <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
+    <span translate="aside.nav.alat.SUB"></span>
+  </li>
+  <li ui-sref-active="active">
+    <a ui-sref="app.perangkateit">
+      <i class="icon-user icon text-success-lter"></i>
+      <!-- <b class="badge bg-success pull-right">Good</b> -->
+      <span translate="aside.nav.alat.LIST"></span>
+    </a>
+  </li>
+  <li ui-sref-active="active">
+    <a ui-sref="app.defaultsetting">
+      <i class="fa fa-spin fa-gear icon text-success-lter"></i>
+      <span translate="aside.nav.alat.SETTING"></span>
+    </a>
+  </li>
+  <li ui-sref-active="active">
+    <a ui-sref="app.shutdown">
+      <i class="fa-power-off fa text-success-lter"></i>
+      <span translate="aside.nav.alat.CONDITION"></span>
+    </a>
+  </li>
+</ul>
+<!-- / list -->

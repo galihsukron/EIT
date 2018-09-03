@@ -1,0 +1,36 @@
+<div class="row" style="overflow-y: scroll; width:110%; padding-right:5%; height: 100%">
+<div><h1 style="width:100%;  text-align: center; font-size: 4.5em; font-weight: 900;">{{app.name}}</h1></div>
+  <div style="width:100%;  text-align: center; font-size: 1em; font-weight: normal; margin-bottom: 30px; margin-top: -10px">Application for Electrical Impedance Tomography
+  </div>
+
+
+  <div class="col-md-12">
+<div class="container w-xxl w-auto-xs" ng-init="app.settings.container = false;">
+
+  <div class="m-b-lg">
+
+    <form name="form" class="form-validation">
+      <div class="text-danger wrapper text-center" ng-show="authError">
+          {{authError}}
+      </div>
+      <div class="list-group list-group-sm">
+        <div class="list-group-item">
+          <input type="text" placeholder="Username" class="form-control no-border" ng-model="user.email" required>
+        </div>
+        <div class="list-group-item">
+           <input type="password" placeholder="Password" class="form-control no-border" ng-model="user.password" required>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-lg btn-info btn-block" ng-click="login()" ng-disabled='form.$invalid' style="font-weight:bold">LOG IN</button>
+      <!-- <a class="pull-right m-t m-b fs-hover-yellow" style="font-weight:bold; margin-right:80px; font-size: 100%;" href="../admin" target="_blank">Register for partnership?</a> -->
+
+      <div class="line line-dashed"></div>
+    </form>
+  </div>
+  <div ng-show="0" class="text-center" ng-include="'tpl/blocks/page_footer.html'">
+    {% include 'blocks/page_footer.html' %}
+  </div>
+</div>
+  </div>
+
+</div>

@@ -1,0 +1,162 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-bold h2">{{infoData.namaData}}
+      <button class="btn btn-danger pull-right" sweetalert sweet-options="{{sweet}}" sweet-on-confirm="deleteData()" >
+          <span class="text"><i class="fa fa-trash"></i> Delete this data</span>
+      </button>
+  </h1>
+</div>
+<div class="wrapper-md">
+    <div class="row">
+        <div class="col-md-12">
+        <!-- <alert type="info" class="text-center">
+            <h4>Data ini menggunakan arus injeksi sebesar {{infoData.arus}} miliampere</h4>
+        </alert> -->
+            <div class="panel panel-primary">
+                <div class="panel-heading m-n h4 text-center">
+                    {{detailSession.judul}}
+                </div>
+                <div class="panel-body">
+                    <div class="col-md-12" ng-hide="detailSession.loadRecon">
+                        <div class="col-md-6">
+                            <div class="list-group">
+                                <div class="list-group-item text-center">
+                                    <div class="m-n h4">Model Phantom</div>
+                                </div>
+                                <div ng-show="infoData.model" class="list-group-item">
+                                    <table class="table">
+                                        <tr>
+                                            <td class="pull-right"><img ng-src="img/model/{{infoData.model}}" width="400px" class="img-responsive"></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div ng-show="!infoData.model" class="list-group-item text-center">
+                                    No model
+                                </div>
+                                <div ng-show="!infoData.model" class="list-group-item text-center">
+                                    <form class="form-horizontal" ng-submit="saveModel()">
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label">Add model</label>
+                                            <div class="col-md-10">
+                                                <input type="file" name="file" id='file' required="required" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="submit" class="btn btn-success" value="Upload"/>
+                                        </div>
+                                    </form>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="list-group">
+                                <div class="list-group-item text-center">
+                                    <div class="m-n h4">Citra</div>
+                                </div>
+                                <div ng-show="infoData.citra" class="list-group-item">
+                                    <table class="table">
+                                        <tr>
+                                            <td style="width:80%"><img ng-src="img/results/{{infoData.citra}}" width="400" class="img-responsive"></td>
+                                            <td style="width:20%" ng-show="showColorbarImage">
+                                                <div class="checkbox">
+                                                    <label class="i-checks"><input type="checkbox" ng-model="showColorbarDetail"><i></i> Show Colorbar</label>
+                                                </div>
+                                                <img ng-show="showColorbarDetail" ng-src="img/results/colorbar.png" width="80" class="img-responsive">
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div ng-hide="infoData.citra" class="list-group-item text-center">
+                                    No Image
+                                </div>
+                                <div ng-hide="infoData.citra" class="list-group-item text-center">
+                                    <button class="btn btn-lg btn-success" ng-click="startDataRecon()"><i class="icon icon-control-play"></i> Start Reconstruction</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 text-center" ng-show="detailSession.loadRecon">
+                        <span id="loadingRekon">
+                            <span id="outRekonCircle">
+                                <!-- <span id="inRekonCircle"></span> -->
+                            </span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+              <div class="panel panel-primary">
+                <div class="panel-heading m-n h4 text-center">Grafik Data</div>
+                <div class="panel-body">
+                    <button class="btn btn-small btn-info" ng-click="$state.reload()">reload</button>
+                  <div ui-jq="plot" ui-options="[
+                  {
+                    'data': {{XData}},
+                    'points': { 'show': true },
+                    'lines': {
+                        'show': true,
+                        'fill': true,
+                        'fillColor': {
+                            'colors': [ { 'opacity': 0.1 }, { 'opacity': 0.1} ]
+                        }
+                    }
+                  }
+                  ],
+                  {
+                    'colors': ['{{app.color.info}}'],
+                    'series': { 'shadowSize': 2 },
+                    'xaxis':{ 'font': { 'color': '#ccc' } },
+                    'yaxis':{ 'font': { 'color': '#ccc' } },
+                    'grid': { 'hoverable': true, 'clickable': true, 'borderWidth': 0, 'color': '#ccc' },
+                    'tooltip': true,
+                    'tooltipOpts': {
+                        'content': '%s of %x.1 is %y.4',
+                        'defaultTheme': false,
+                        'shifts': { 'x': 0, 'y': 20 }
+                    }
+                  }" style="height:240px"></div>
+                </div>
+              </div>
+        </div>
+
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-primary">
+                <div class="panel-heading m-n h4 text-center">Data Elektroda dan Tegangan</div>
+                <div class="panel-body b-b b-light">
+                    <div class="font-bold">Arus injeksi: {{infoData.arus}} miliampere</div>
+                    <!-- <button class="btn btn-success pull-right">Save csv</button> -->
+                </div>
+                <div>
+                    <table class="table table-striped b-t b-light" ui-jq="footable" data-filter="#filter" data-page-size="210">
+                        <thead style="display:block;">
+                          <tr>
+                            <th style="width:8%" class="text-center">No</th>
+                            <th style="width:11%" class="text-center">Elektroda Arus (- +)</th>
+                            <th style="width:13%" class="text-center">Elektroda Tegangan (+ -)</th>
+                            <th style="width:15%" class="text-center">Tegangan (volt)</th>
+                          </tr>
+                        </thead>
+                        <tbody style="overflow-y: scroll; height: 400px; display:block;">
+                            <tr ng-repeat="data in TableData" foo-repeat-done>
+                                <td style="width:1%" class="text-center">{{$index+1}}</td>
+                                <td style="width:7%" class="text-center">{{data.elecArus}}</td>
+                                <td style="width:5%">{{data.elecTegangan}}</td>
+                                <td style="width:2%">{{data.voltage}}</td>
+                            </tr>
+                        </tbody>
+                        <tfoot class="hide">
+                          <tr>
+                              <td colspan="5" class="text-center">
+                                  <ul class="pagination"></ul>
+                              </td>
+                          </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+     </div>
+</div>

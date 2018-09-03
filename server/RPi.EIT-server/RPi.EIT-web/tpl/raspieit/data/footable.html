@@ -1,0 +1,54 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Footable</h1>
+</div>
+<div class="wrapper-md">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      Footable - make HTML tables on smaller devices look awesome
+    </div>
+    <div class="panel-body b-b b-light">
+      Search: <input id="filter" type="text" class="form-control input-sm w-sm inline m-r"/>
+    </div>
+    <div>
+      <table class="table m-b-none" ui-jq="footable" data-filter="#filter" data-page-size="5">
+        <thead>
+          <tr>
+              <th data-toggle="true">
+                  First Name
+              </th>
+              <th>
+                  Last Name
+              </th>
+              <th data-hide="phone,tablet">
+                  Job Title
+              </th>
+              <th data-hide="phone,tablet" data-name="Date Of Birth">
+                  DOB
+              </th>
+              <th data-hide="phone">
+                  Status
+              </th>
+          </tr>
+        </thead>
+        <tbody>
+            <div>
+                <tr ng-repeat="data in dataTegangan"  foo-repeat-done>
+                    <td>asdadasd</td>
+                    <td>asdadasd</td>
+                    <td>asdadasd</td>
+                    <td>asdadasd</td>
+                    <td>asdadasd</td>
+                </tr>
+            </div>
+        </tbody>
+        <tfoot class="hide-if-no-paging">
+          <tr>
+              <td colspan="5" class="text-center">
+                  <ul class="pagination"></ul>
+              </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+[13 juli 2018]
+Menggunakan server lokal.
+Hidupkan xampp baru jalankan command npm start app.js
+
+Di bagian raspberry, run.py func getData() 
+  kok dataVolt masih default value. Blm ngambil langsung dari arduino.
+  Berarti cari tau gimana caranya raspi ngambil data dari arduino lewat i2C

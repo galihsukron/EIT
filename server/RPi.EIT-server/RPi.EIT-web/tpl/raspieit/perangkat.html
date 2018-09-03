@@ -1,0 +1,40 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">List Perangkat EIT</h1>
+</div>
+
+<div class="wrapper-md">
+    <div class="row">
+        <div class="col-md-12">
+            <div ng-repeat="data in dataEIT">
+                <div class="panel panel-primary">
+                    <div class="panel-heading m-n h4">{{data.nama_alat}}</div>
+                    <div class="panel-body">
+                        <div class="col-md-6">
+                            <img ng-show="data.foto" ng-src="img/alat/{{data.foto}}" height="300">
+                            <div ng-hide="data.foto" class="text-center">No Photo</div>
+                        </div>
+                        <div class="col-md-6">
+                            <table class="table">
+                                <tr>
+                                    <td style="width:40%" align="right">Engine</td>
+                                    <td style="width:7%">:</td>
+                                    <td class="font-bold">{{data.versi_raspi}}</td>
+                                </tr>
+                                <tr>
+                                    <td style="width:40%" align="right">Microcontroller</td>
+                                    <td style="width:7%">:</td>
+                                    <td class="font-bold">{{data.tipe_arduino}}</td>
+                                </tr>
+                                <tr>
+                                    <td style="width:40%" align="right">Detail</td>
+                                    <td style="width:7%">:</td>
+                                    <td class="font-bold">16 elektroda yang terhubung ke objek dengan 4 buah multiplexer</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,107 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">{{judul4}}
+      <button class="btn pull-right" ui-toggle-class="button" ng-click="mainData=!mainData" ng-class="mainData ? 'btn-info' : 'btn-danger'">
+          <span class="text"><i class="fa fa-plus"></i> Data Baru</span>
+          <span class="text-active"><i class="fa fa-times"></i> Close</span>
+      </button>
+  </h1>
+</div>
+<div class="wrapper-md">
+  <div class="panel panel-primary" ng-show="mainData">
+    <div class="panel-heading text-center m-n h4">Data Tegangan</div>
+    <div class="panel-body b-b b-light">
+      Search: <input id="filter" type="text" class="form-control input-sm w-sm inline m-r"/>
+    <div class="table-responsive col-md-10 col-md-offset-1">
+      <table class="table m-b-none" ui-jq="footable" data-filter="#filter" data-page-size="10">
+        <thead>
+          <tr>
+            <th style="width:8%" class="text-center">No</th>
+            <th style="width:20%">Nama Data</th>
+            <th style="width:25%">Filename</th>
+            <th style="width:17%">Arus Injeksi</th>
+            <th style="width:15%">Deskripsi</th>
+            <th style="width:21%">Tanggal Diambil</th>
+            <td style="width:5%"></td>
+            <td style="width:5%"></td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="data in dataTegangan" foo-repeat-done>
+            <td class="text-center">{{$index+1}}</td>
+            <td>{{data.nama_data}}</td>
+            <td>{{data.filename}}</td>
+            <td>{{data.arus_injeksi}}</td>
+            <td>{{data.deskripsi}}</td>
+            <td class="text-center">{{data.datetime | date:'dd/MM/yyyy'}}</td>
+            <td class="text-right">
+                <a ui-sref="app.data.id({idData: data.filename.slice(0, -4)})" class="btn btn-primary">Details</a>
+            </td>
+            <td class="text-left">
+                <button class="btn btn-danger pull-right" sweetalert sweet-options="{{sweet}}" sweet-on-confirm="deleteData(data.filename,data.id_data)" >
+                    <span class="text">Delete</span>
+                </button>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+              <td colspan="6" class="text-center"><ul class="pagination"></ul></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+  </div>
+
+  <div class="col-md-12" ng-show="!mainData">
+    <div class="col-md-6 col-md-offset-2">
+        <alert ng-repeat="alert in alerts" type="{{alert.type}}" class="text-center"><h4>{{alert.msg}}</h4></alert>
+        <div class="panel panel-info">
+            <div class="panel-heading text-center m-n h4">Tambah Data Baru</div>
+            <div class="panel-body">
+              <form class="form-horizontal form-validation" ng-submit="saveData()">
+                  <div class="form-group">
+                  <label class="col-lg-4 control-label">Nama Data</label>
+                      <div class="col-lg-8">
+                          <input type="text" class="form-control" placeholder="Nama Data" ng-model="valNama" required="required">
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <label class="col-lg-4 control-label">Arus Injeksi</label>
+                      <div class="col-lg-4">
+                          <input type="text" class="form-control" placeholder="Arus Injeksi" ng-model="valArus" required="required">
+                      </div>miliampere
+                  </div>
+                  <div class="form-group">
+                      <label class="col-lg-4 control-label">Deskripsi Data</label>
+                      <div class="col-lg-8">
+                          <textarea class="form-control" placeholder="Deskripsi Data" ng-model="valDes" required="required"></textarea>
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <label class="col-lg-4 control-label">File</label>
+                      <div class="col-lg-8">
+                          <input type="file" name="file" id='file' required="required" />
+                      </div>
+                  </div>
+                  <footer class="panel-footer text-right bg-light lter">
+                    <button type="submit" class="btn btn-info"><i class="fa fa-upload"></i> Upload</button>
+                  </footer>
+              </form>
+              <!-- <div class="row" style="padding-top:20px">
+  <div class="col-lg-9">
+  </div>
+  <div class="col-lg-1">
+    <button class="btn m-b-xs w-xs btn-info text-right">Sign Up</button>
+  </div>
+  <div class="col-lg-1" style="padding-right:10px">
+    <button class="btn m-b-xs w-xs btn-info text-right">Log In</button>
+  </div>
+ </div> -->
+
+
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
