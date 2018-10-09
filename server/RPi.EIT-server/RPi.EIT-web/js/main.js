@@ -58,11 +58,19 @@ angular.module('app')
           colorbar: false,
           saveData: true
       }
+      $scope.kalibrasiSettings = {
+          algor: 'BP',
+          arus: 7.1,
+          kerapatan: 0.306,
+          colorbar: false,
+          saveData: true
+      }
 
       if (angular.isDefined($localStorage.eitSettings) ) {
         $scope.eitSettings = $localStorage.eitSettings;
       } else {
         $localStorage.eitSettings = $scope.eitSettings;
+        
       }
 
       // save settings to local storage

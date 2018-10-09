@@ -154,6 +154,22 @@ angular.module('app')
                       }]
                   }
               })
+              .state('app.kalibrasi', {
+                  url: '/kalibrasi',
+                  controller: 'KalibrasiCtrl',
+                  templateUrl: 'tpl/raspieit/kalibrasi.html',
+                  resolve: {
+                      deps: ['$ocLazyLoad',
+                        function($ocLazyLoad){
+                          return $ocLazyLoad.load('toaster').then(
+                              function(){
+                                 return $ocLazyLoad.load('js/raspEIT/controllers/kalibrasi.js');
+                              }
+                          );
+                      }]
+                  }
+              })
+              
 
               // EIT instrument
               .state('app.defaultsetting', {

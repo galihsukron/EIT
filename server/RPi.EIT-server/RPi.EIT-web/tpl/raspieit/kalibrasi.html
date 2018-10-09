@@ -1,0 +1,173 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3" ng-init="mainReal=true">Kalibrasi EIT
+  </h1>
+</div>
+
+<div class="padder">
+	<div class="streamline b-l b-info m-l-lg m-b padder-v">
+	<!-- from here -->
+		<div>
+			<a class="pull-left thumb-sm avatar m-l-n-md">
+			<img src="img/assets/D.png" class="img-circle" alt="...">
+			</a>
+			<div class="m-l-lg">
+				<div class="m-b-xs">
+					<h2 class="m-t-none">Memastikan perangkat EIT Online</h2>
+				</div>
+				<div class="m-b">
+					<div>
+						<p>
+						Indikator bahwa perangkat EIT sudah dalam keadaaan Online adalah adanya icon Play dibawah. Jika icon silang, maka perangkat dalam kondisi Offline.<br><br>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div>
+			<a class="pull-left thumb-sm avatar m-l-n-md">
+			<img src="img/assets/D.png" class="img-circle" alt="...">
+			</a>
+			<div class="m-l-lg">
+				<div class="m-b-xs">
+					<h3 class="m-t-none">Memastikan perangkat tersambung dengan Phantom Resistor</h3>
+				</div>
+				<div class="m-b">
+					<div>
+						<p>Kabel-kabel dari perangkat harus terpasang terhadap phantom resistor dengan posisi searaah jarum jam mulai dari kabel no 1 hingga no 16.<br><br></p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div>
+			<a class="pull-left thumb-sm avatar m-l-n-md">
+			<img src="img/assets/D.png" class="img-circle" alt="...">
+			</a>
+			<div class="m-l-lg">
+				<div class="m-b-xs">
+				<h3 class="m-t-none">Klik tombol kalibrasi</h3>
+				</div>
+				<div class="m-b">
+					<div>
+						<p><br><br></p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div>
+			<a class="pull-left thumb-sm avatar m-l-n-md">
+			<img src="img/assets/D.png" class="img-circle" alt="...">
+			</a>
+			<div class="m-l-lg">
+				<div class="m-b-xs">
+				<h3 class="m-t-none">Hasil kalibrasi harus mendekati dengan gambar ini</h3>
+				</div>
+				<div class="m-b">
+					<div>
+					<div class="text-center"> <img ng-src="/img/assets/chickentiss.jpeg" width="500"> </div>
+						<p><br><br></p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		
+	</div>
+</div>
+         
+<div class="wrapper-md">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-7">
+                <alert ng-repeat="alert in alerts" type="{{alert.type}}" class="text-center"><h4>{{alert.msg}}</h4></alert>
+                <div class="panel panel-primary" ng-show="realtimeSession.showImage">
+                    <div class="panel-body">
+                        <button sweetalert sweet-options="{{sweet}}" sweet-on-confirm="deleteImg()" class="btn btn-danger pull-right"><i class="fa fa-trash"></i> Delete</button>
+                        <img ng-src="img/results/{{imageName}}" class="img-full">
+                    </div>
+                </div>
+                <div class="text-center" ng-hide="realtimeSession.loadImage || realtimeSession.showImage">
+                    <a href="" ng-click="run()">
+                        <i ng-class="iconClass" style="font-size: 200px;"></i>
+                    </a>
+                </div>
+
+                <div class="text-center" ng-show="realtimeSession.loadImage">
+                    <span id="loading1">
+                        <span id="outerCircle"></span>
+                        <span id="innerCircle"></span>
+                    </span>
+                </div>
+            </div>
+
+            <div class="col-md-5">
+                <div class="panel panel-primary">
+                    <div class="panel-heading h4 text-center">{{headSetting}}</div>
+                    <div class="panel-body">
+                        <div ng-init="settingSession=false" ng-show="!settingSession">
+                            <table class="table">
+                                <tr><td style="width:50%" align="right">Algoritma Rekonstruksi</td><td style="width:7%">:</td><td> <b>{{eitSettings.algor}}</b></td></tr>
+                                <tr><td align="right">Arus Injeksi</td><td>:</td><td> <b>7.0 miliampere</b></td></tr>
+                                <tr><td align="right">Kerapatan Citra</td><td>:</td><td> <b>0.305</b></td></tr>
+                                <tr><td align="right">Colorbar Citra</td><td>:</td><td> <b>{{colorbar}}</b></td></tr>
+                                <tr><td align="right">Simpan Data</td><td>:</td><td> <b>{{saveData}}</b></td></tr>
+                            </table>
+<!--                            <a ng-click="changeSetting()" class="btn btn-primary pull-right">Change setting</a> -->
+                        </div>
+
+                        <div ng-show="settingSession">
+                            <form class="form-horizontal form-validation">
+                                <div class="form-group">
+                                <label class="col-lg-4 control-label">Algoritma Rekonstruksi:</label>
+                                    <div class="col-lg-8">
+                                        <div class="radio" ng-repeat="algor in algors">
+                                        <label class="i-checks">
+                                          <input type="radio" name="algor" value="{{algor.id_algor}}" ng-model="eitSettings.algor">
+                                          <i></i>
+                                          {{algor.nama_algor}}
+                                        </label>
+                                      </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-4 control-label">Arus Injeksi:</label>
+                                    <div class="col-lg-8">
+                                        <input type="text" class="form-control" placeholder="Arus Injeksi" ng-model="eitSettings.arus" required="required">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-4 control-label">Kerapatan:</label>
+                                    <div class="col-lg-8">
+                                        <input type="text" class="form-control" placeholder="Kerapatan" ng-model="eitSettings.kerapatan" required="required">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-4 control-label">Colorbar:</label>
+                                    <div class="col-lg-8">
+                                        <div class="checkbox">
+                                            <label class="i-checks"><input type="checkbox" ng-model="eitSettings.colorbar"><i></i> Show Colorbar</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-4 control-label">Data:</label>
+                                    <div class="col-lg-8">
+                                        <div class="checkbox">
+                                            <label class="i-checks"><input type="checkbox" ng-model="eitSettings.saveData"><i></i> Save Data</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <footer class="panel-footer text-right bg-light lter">
+                                  <button type="submit" class="btn btn-info" ng-click="saveSetting()"><i class="fa fa-save"></i> OK</button>
+                                </footer>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

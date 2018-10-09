@@ -21,7 +21,7 @@ int kirimData;
 
 // init pin multiplexer output
 int mux[4][4] = {{22,23,24,25},{26,27,28,29},{30,31,32,33},{34,35,36,37}}; // pin s0,s1,s2,s3 all multiplexer
-int ENMux[4] = {38,39,40,41};    // port EN all multiplexer
+int ENMux[4] = {52,50,48,46};    // port EN all multiplexer
 //MUX74HC4067 mux0(38, 22, 23, 24, 25); // EN, S0, S1, S2, S3
 //MUX74HC4067 mux1(39, 26, 27, 28, 29); // EN, S0, S1, S2, S3
 //MUX74HC4067 mux2(40, 30, 31, 32, 33); // EN, S0, S1, S2, S3

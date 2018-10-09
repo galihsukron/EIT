@@ -25,6 +25,7 @@
       "RECONSTRUCTION": "Reconstruction",
       "REALTIME": "Realtime EIT",
       "GALLERY": "Gallery",
+      "KALIBRASI": "Kalibrasi",
       "CHART" : "Chart"
     },
     "alat" : {

@@ -62,6 +62,7 @@ module.exports.listen = function(server) {
 		});
 
 		socket.on('startGetData', function(data){
+		    console.log("socket-io.js viewvolttage\n");
 			socket.broadcast.emit('getDataVoltage', {
 				status: clients[0].status,
 				token: clients[0].token,
@@ -70,7 +71,7 @@ module.exports.listen = function(server) {
 		});
 		socket.on('postDataVoltage', function(data){
 			if (data["status"]) {
-				console.log("viewvolttage\n");
+				console.log("socket-io.js viewvolttage\n");
 				socket.broadcast.emit('viewResultVoltage', data);
 			}
 			num++;
