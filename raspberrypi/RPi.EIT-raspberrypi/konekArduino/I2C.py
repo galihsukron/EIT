@@ -1,4 +1,3 @@
-#baru
 import time
 from time import strftime
 import smbus
@@ -27,69 +26,79 @@ class I2C(object):
 			data.append(value)
 
 		with SMBusWrapper(1) as bus:
-		    print (data)
-		    bus.write_i2c_block_data(self.address, 0, data)
+			print (data)
+			bus.write_i2c_block_data(self.address, 0, data)
 
 		return -1
 
-	def readData_bak(self):
-		print "halooo ini budi"
-		data = []
-		jumlah = 0
-		for i in range(0, 4):
-			val = self.bus.read_byte(self.address)
-			jumlah+=val
-			data.append(val)
-		data.append(jumlah)
-		return jumlah
 
 	def control(self,data):
 		with SMBusWrapper(1) as bus:
-		    print (data)
-		    bus.write_i2c_block_data(self.address, 0, data)
+			print (data)
+			bus.write_i2c_block_data(self.address, 0, data)
 		return -1
 		
 	def getDataVoltInByte(self):
 		return self.bus.read_i2c_block_data(self.address, 0);
 		
-	def getFloat(self, data):
-		index = 0
+	def getFloat(self, data, index):
 		bytes = data[4*index:(index+1)*4]
 		return struct.unpack('f', "".join(map(chr, bytes)))[0]
-		
+
+	
+	def getData(self, data_size):
+		dataVolt = []
+		i=0					
+		while i < data_size:
+			try:
+				data_voltage = self.getDataVoltInByte()
+
+				for n in range(0,8):
+					dataVolt.append(self.getFloat(data_voltage, n))
+					print("dataVolt.append")
+
+				i+=8
+				time.sleep(1)
+				
+			except Exception, e:
+				print e
+				raw_input("berhenti dulu lah")
+				self.loop = 0
+				
+		return dataVolt
+	
 	def readData(self):
 		while self.loop:
 			try:
-				x = self.bus.read_byte(self.address)
+				canScan = self.bus.read_byte(self.address)
 				time.sleep(0.2)
 				
-				if(x==1):
-					print "Data pertama, PI menerima dari arduino: ", x
-					self.bus.write_byte(self.address, x)
+				if(canScan==1):
+					print "Data pertama, PI menerima dari arduino utk mulai scanning: ", canScan
+					self.bus.write_byte(self.address, canScan)
+					
+					#scanning disini
+					data=2
+					while data == 2:
+						print("masih scanning")
+						data = self.bus.read_byte(self.address)
+						time.sleep(2)
+					print "ALOHA"
+
+					time.sleep(2)
+					data_size = data
 					time.sleep(0.2)
+					print "Data kedua, PI menerima data size dari arduino: ", data_size
+					self.bus.write_byte(self.address, data_size)
 					
-					data2 = self.bus.read_byte(self.address)
-					time.sleep(0.2)
-					print "Data kedua, PI menerima dari arduino: ", data2
-					self.bus.write_byte(self.address, data2)
-					
-					dataVolt = []
-					
-					for i in range(0,data2):
-						try:
-							data_voltage = self.getDataVoltInByte()
-							
-							data_voltage_float = self.getFloat(data_voltage)
-#							print(data_voltage_float)
-							dataVolt.append(data_voltage_float)
-							time.sleep(0.2)
-							
-						except:
-							print "coba lagi"
-							
+					dataVolt = self.getData(data_size)
+					print "Pengambilan dataVolt sudah selesai "
+					time.sleep(2)		
 					flag_finish = self.bus.read_byte(self.address)
 					time.sleep(0.2)
 					print "Data flag, PI menerima dari arduino: ", flag_finish
+					print "Data index: ", dataVolt
+#					print "Data index ke-207: ", dataVolt[207]
 					self.bus.write_byte(self.address, flag_finish)
 					time.sleep(0.2)
 					

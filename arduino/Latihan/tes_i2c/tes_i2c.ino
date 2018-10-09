@@ -9,7 +9,7 @@ int flag_int_to_send_to_PI = 0;
 int flag_int_received_from_PI = 0;
 float scanned[DATA_SIZE];
 float volt = 0.0;
-int nilai = 1;
+int canScan = 0;
 float data[FLOATS_SENT];
 
 //{22,23,24,25},  MUX V1 vPos
@@ -40,9 +40,9 @@ void setup() {
 
 void loop() {
   //cocot();
-  if (nilai == 1){
+  if (canScan == 1){
     scanEITfull();
-    nilai = 0;
+    canScan = 0;
   }
 }
 
@@ -119,17 +119,14 @@ void receiveData(int byteCount) {
 
         if(flag_int_received_from_PI == 1) {
             Serial.println("arduino menerima 1, lakukan scanning");
-            //for(int i=0; i<DATA_SIZE; i++){
-            //  scanned[i] = 1.5;
-            //}
-            //scanned[0] = 1.5;
-            //scanned[1] = 11.8;
-            //scanEITfull();
-            //cocot2();
-            Serial.println("Selesai scanning");
-            Serial.println("kirim jml data ke PI.");
-            flag_int_to_send_to_PI = DATA_SIZE;
+            
+            canScan = 1;
+            
+            //Serial.println("Selesai scanning");
+            //Serial.println("kirim jml data ke PI.");
+            flag_int_to_send_to_PI = 2;
         }
+        
         else if (flag_int_received_from_PI == DATA_SIZE){
             Serial.println("arduino menerima DATA_SIZE, kirim float ke PI");
             flag_int_to_send_to_PI = 3;
@@ -152,11 +149,22 @@ void sendData() {
         Serial.println("Komunikasi dimulai : mengirim 1 ke PI");
         Wire.write(flag_int_to_send_to_PI);
     }
-
-    else if(flag_int_to_send_to_PI == DATA_SIZE) {
-        Serial.println("Arduino mengirim jml data ke PI");
-        Wire.write(flag_int_to_send_to_PI);
+    else if(flag_int_to_send_to_PI == 2){
+      if(canScan == 1){
+        Serial.println("Masih scanning");
+        flag_int_to_send_to_PI = 2;
+      }
+      else{
+        Serial.println("Selesai scanning, Arduino mengirim jml data ke PI");
+        flag_int_to_send_to_PI = DATA_SIZE;
+      }
+      Wire.write(flag_int_to_send_to_PI);
     }
+
+//    else if(flag_int_to_send_to_PI == DATA_SIZE) {
+//        Serial.println("Arduino mengirim jml data ke PI");
+//        Wire.write(flag_int_to_send_to_PI);
+//    }
     
     else if(flag_int_to_send_to_PI == 3) {
       if(index < DATA_SIZE){
